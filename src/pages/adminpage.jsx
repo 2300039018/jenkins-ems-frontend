@@ -71,7 +71,7 @@ const AdminDashboard = () => {
   // Fetch data on mount
   const fetchEmployees = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/employees");
+      const res = await fetch("http://localhost:9090/api/employees");
       if (!res.ok) throw new Error("Failed to fetch employees");
       const data = await res.json();
       setEmployees(data);
@@ -83,7 +83,7 @@ const AdminDashboard = () => {
 
   const fetchHrAccounts = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/hr/accounts");
+      const res = await fetch("http://localhost:9090/api/hr/accounts");
       if (!res.ok) throw new Error("Failed to fetch HR accounts");
       const data = await res.json();
       setHrAccounts(data);
@@ -95,11 +95,11 @@ const AdminDashboard = () => {
 
   const fetchSignupRequests = async () => {
     try {
-      const empRes = await fetch("http://localhost:8080/api/employees/pending");
+      const empRes = await fetch("http://localhost:9090/api/employees/pending");
       if (!empRes.ok) throw new Error("Failed to fetch pending employees");
       const empData = await empRes.json();
 
-      const hrRes = await fetch("http://localhost:8080/api/hr/pending");
+      const hrRes = await fetch("http://localhost:9090/api/hr/pending");
       if (!hrRes.ok) throw new Error("Failed to fetch pending HR");
       const hrData = await hrRes.json();
 
@@ -179,14 +179,14 @@ const AdminDashboard = () => {
   const handleAddEmployee = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8080/api/employees/create", {
+      const response = await fetch("http://localhost:9090/api/employees/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newEmployee),
       });
       if (!response.ok) throw new Error("Failed to create employee");
       const data = await response.json();
-      const approveRes = await fetch(`http://localhost:8080/api/employees/approve/${data.id}`, { method: "POST" });
+      const approveRes = await fetch(`http://localhost:9090/api/employees/approve/${data.id}`, { method: "POST" });
       if (!approveRes.ok) throw new Error("Failed to approve employee");
       fetchEmployees();
       fetchSignupRequests();
@@ -214,14 +214,14 @@ const AdminDashboard = () => {
   const handleAddHr = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8080/api/hr/create", {
+      const response = await fetch("http://localhost:9090/api/hr/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newHr),
       });
       if (!response.ok) throw new Error("Failed to create HR");
       const data = await response.json();
-      const approveRes = await fetch(`http://localhost:8080/api/hr/approve/${data.id}`, { method: "POST" });
+      const approveRes = await fetch(`http://localhost:9090/api/hr/approve/${data.id}`, { method: "POST" });
       if (!approveRes.ok) throw new Error("Failed to approve HR");
       fetchHrAccounts();
       fetchSignupRequests();
@@ -285,7 +285,7 @@ const AdminDashboard = () => {
   const handleUpdateEmployee = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:8080/api/employees/${editEmployee.id}`, {
+      const response = await fetch(`http://localhost:9090/api/employees/${editEmployee.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editEmployee),
@@ -304,7 +304,7 @@ const AdminDashboard = () => {
   const handleUpdateHr = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:8080/api/hr/${editHr.id}`, {
+      const response = await fetch(`http://localhost:9090/api/hr/${editHr.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editHr),
@@ -322,7 +322,7 @@ const AdminDashboard = () => {
   // Delete employee
   const handleDeleteEmployee = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/employees/${id}`, { method: "DELETE" });
+      const response = await fetch(`http://localhost:9090/api/employees/${id}`, { method: "DELETE" });
       if (!response.ok) throw new Error("Failed to delete employee");
       fetchEmployees();
       alert("Employee deleted successfully!");
@@ -335,7 +335,7 @@ const AdminDashboard = () => {
   // Delete HR
   const handleDeleteHr = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/hr/${id}`, { method: "DELETE" });
+      const response = await fetch(`http://localhost:9090/api/hr/${id}`, { method: "DELETE" });
       if (!response.ok) throw new Error("Failed to delete HR");
       fetchHrAccounts();
       alert("HR deleted successfully!");
@@ -350,9 +350,9 @@ const AdminDashboard = () => {
     try {
       let url = "";
       if (request.role === "employee") {
-        url = `http://localhost:8080/api/employees/approve/${request.id}`;
+        url = `http://localhost:9090/api/employees/approve/${request.id}`;
       } else {
-        url = `http://localhost:8080/api/hr/approve/${request.id}`;
+        url = `http://localhost:9090/api/hr/approve/${request.id}`;
       }
       const response = await fetch(url, { method: "POST" });
       if (!response.ok) throw new Error("Failed to approve request");
@@ -371,9 +371,9 @@ const AdminDashboard = () => {
     try {
       let url = "";
       if (request.role === "employee") {
-        url = `http://localhost:8080/api/employees/reject/${request.id}`;
+        url = `http://localhost:9090/api/employees/reject/${request.id}`;
       } else {
-        url = `http://localhost:8080/api/hr/reject/${request.id}`;
+        url = `http://localhost:9090/api/hr/reject/${request.id}`;
       }
       const response = await fetch(url, { method: "DELETE" });
       if (!response.ok) throw new Error("Failed to reject request");

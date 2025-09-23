@@ -24,7 +24,7 @@ const EmployeeDashboard = () => {
   useEffect(() => {
     const fetchLeaveHistory = async () => {
       try {
-        const res = await fetch(`http://localhost:8080/api/employees/leaves?empId=${empId}`);
+        const res = await fetch(`http://localhost:9090/api/employees/leaves?empId=${empId}`);
         if (!res.ok) throw new Error("Failed to fetch leave history");
         const data = await res.json();
         setLeaveHistory(data);
@@ -36,7 +36,7 @@ const EmployeeDashboard = () => {
 
     const fetchPayrollHistory = async () => {
       try {
-        const res = await fetch(`http://localhost:8080/api/employees/payroll?empId=${empId}`);
+        const res = await fetch(`http://localhost:9090/api/employees/payroll?empId=${empId}`);
         if (!res.ok) throw new Error("Failed to fetch payroll history");
         const data = await res.json();
         setPayrollHistory(data);
@@ -48,7 +48,7 @@ const EmployeeDashboard = () => {
 
     const fetchProfile = async () => {
       try {
-        const res = await fetch(`http://localhost:8080/api/employees/profile?empId=${empId}`);
+        const res = await fetch(`http://localhost:9090/api/employees/profile?empId=${empId}`);
         if (!res.ok) throw new Error("Failed to fetch profile");
         const data = await res.json();
         setPersonalInfo({
@@ -82,7 +82,7 @@ const EmployeeDashboard = () => {
   const handleLeaveSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:8080/api/employees/leave-request?empId=${empId}`, {
+      const response = await fetch(`http://localhost:9090/api/employees/leave-request?empId=${empId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -111,7 +111,7 @@ const EmployeeDashboard = () => {
   const handlePersonalInfoSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:8080/api/employees/profile?empId=${empId}`, {
+      const response = await fetch(`http://localhost:9090/api/employees/profile?empId=${empId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
