@@ -6,7 +6,7 @@ import EmployeeDashboard from "./pages/employeepage";
 
 function App() {
   return (
-    <Router basename="/EMS"> {/* Match the deployment context path */}
+    <Router> {/* Match the deployment context path */}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
